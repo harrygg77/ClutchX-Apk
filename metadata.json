@@ -1,0 +1,6 @@
+{
+  "name": "ClutchX",
+  "description": "Nepali esports tournament platform for Free Fire and PUBG Mobile players with tournament discovery, team management, match rooms, leaderboards, and admin dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,351 @@
+{
+  "entities": {
+    "AdminMarker": {
+      "title": "AdminMarker",
+      "description": "Authorized ClutchX administrator record",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["ADMIN"] },
+        "createdAt": { "type": "string", "format": "date-time", "description": "FieldValue.serverTimestamp()" }
+      },
+      "required": ["userId", "email", "role", "createdAt"]
+    },
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Player account profile with Free Fire and PUBG Mobile UIDs and stats",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "username": { "type": "string" },
+        "email": { "type": "string" },
+        "avatarKey": { "type": "string" },
+        "freeFireUid": { "type": "string" },
+        "pubgUid": { "type": "string" },
+        "language": { "type": "string", "enum": ["EN", "NE"] },
+        "role": { "type": "string", "enum": ["PLAYER", "ADMIN"] },
+        "matchesPlayed": { "type": "integer" },
+        "totalKills": { "type": "integer" },
+        "tournamentWins": { "type": "integer" },
+        "totalPoints": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "username", "email", "role", "language", "createdAt", "updatedAt"]
+    },
+    "Tournament": {
+      "title": "Tournament",
+      "description": "Esports tournament listing in NPR and Nepal Standard Time",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "game": { "type": "string", "enum": ["FREE_FIRE", "PUBG_MOBILE"] },
+        "mode": { "type": "string", "enum": ["SOLO", "DUO", "SQUAD"] },
+        "entryFeeNpr": { "type": "integer" },
+        "prizePoolNpr": { "type": "integer" },
+        "maxParticipants": { "type": "integer" },
+        "registeredCount": { "type": "integer" },
+        "status": { "type": "string", "enum": ["DRAFT", "UPCOMING", "LIVE", "FULL", "COMPLETED", "CANCELLED"] },
+        "published": { "type": "boolean" },
+        "featured": { "type": "boolean" },
+        "demo": { "type": "boolean" },
+        "registrationDeadlineMs": { "type": "integer" },
+        "startTimeMs": { "type": "integer" },
+        "killPoints": { "type": "integer" },
+        "booyahPoints": { "type": "integer" },
+        "placementRule": { "type": "string" },
+        "tieBreakerRule": { "type": "string", "enum": ["MOST_KILLS", "HIGHEST_PLACEMENT", "MOST_WINS"] },
+        "rulesSummary": { "type": "string" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "title", "game", "mode", "entryFeeNpr", "prizePoolNpr",
+        "maxParticipants", "registeredCount", "status", "published",
+        "featured", "demo", "registrationDeadlineMs", "startTimeMs",
+        "killPoints", "booyahPoints", "tieBreakerRule", "createdBy",
+        "createdAt", "updatedAt"
+      ]
+    },
+    "Team": {
+      "title": "Team",
+      "description": "Player squad or duo team",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "tag": { "type": "string" },
+        "game": { "type": "string", "enum": ["FREE_FIRE", "PUBG_MOBILE"] },
+        "captainId": { "type": "string" },
+        "captainName": { "type": "string" },
+        "logoKey": { "type": "string" },
+        "memberUids": { "type": "array" },
+        "memberNames": { "type": "array" },
+        "matchesPlayed": { "type": "integer" },
+        "wins": { "type": "integer" },
+        "totalKills": { "type": "integer" },
+        "totalPoints": { "type": "integer" },
+        "publicRoster": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "tag", "game", "captainId", "captainName", "memberUids", "publicRoster", "createdAt", "updatedAt"]
+    },
+    "TeamInvitation": {
+      "title": "TeamInvitation",
+      "description": "Single-use team invitation",
+      "type": "object",
+      "properties": {
+        "teamId": { "type": "string" },
+        "teamName": { "type": "string" },
+        "game": { "type": "string", "enum": ["FREE_FIRE", "PUBG_MOBILE"] },
+        "captainId": { "type": "string" },
+        "captainName": { "type": "string" },
+        "invitedEmail": { "type": "string" },
+        "invitedByName": { "type": "string" },
+        "status": { "type": "string", "enum": ["PENDING", "ACCEPTED", "REJECTED"] },
+        "answeredByUid": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["teamId", "teamName", "game", "captainId", "invitedEmail", "status", "createdAt", "updatedAt"]
+    },
+    "Registration": {
+      "title": "Registration",
+      "description": "Tournament participant registration",
+      "type": "object",
+      "properties": {
+        "tournamentId": { "type": "string" },
+        "tournamentTitle": { "type": "string" },
+        "game": { "type": "string", "enum": ["FREE_FIRE", "PUBG_MOBILE"] },
+        "mode": { "type": "string", "enum": ["SOLO", "DUO", "SQUAD"] },
+        "userId": { "type": "string" },
+        "username": { "type": "string" },
+        "inGameUid": { "type": "string" },
+        "teamId": { "type": "string" },
+        "teamName": { "type": "string" },
+        "memberUids": { "type": "array" },
+        "status": { "type": "string", "enum": ["PENDING", "APPROVED", "REJECTED", "CANCELLED"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["tournamentId", "tournamentTitle", "game", "mode", "userId", "username", "inGameUid", "memberUids", "status", "createdAt", "updatedAt"]
+    },
+    "TournamentParticipant": {
+      "title": "TournamentParticipant",
+      "description": "Per-user participant gate for private match room access",
+      "type": "object",
+      "properties": {
+        "tournamentId": { "type": "string" },
+        "userId": { "type": "string" },
+        "registrationId": { "type": "string" },
+        "status": { "type": "string", "enum": ["PENDING", "APPROVED", "REJECTED", "CANCELLED"] },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["tournamentId", "userId", "registrationId", "status", "updatedAt"]
+    },
+    "Match": {
+      "title": "Match",
+      "description": "Public match schedule and round metadata (no credentials)",
+      "type": "object",
+      "properties": {
+        "tournamentId": { "type": "string" },
+        "tournamentTitle": { "type": "string" },
+        "roundName": { "type": "string" },
+        "matchNumber": { "type": "integer" },
+        "mapName": { "type": "string" },
+        "game": { "type": "string", "enum": ["FREE_FIRE", "PUBG_MOBILE"] },
+        "scheduledTimeMs": { "type": "integer" },
+        "status": { "type": "string", "enum": ["SCHEDULED", "LIVE", "COMPLETED"] },
+        "credentialsReleased": { "type": "boolean" },
+        "published": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["tournamentId", "tournamentTitle", "roundName", "matchNumber", "mapName", "game", "scheduledTimeMs", "status", "credentialsReleased", "published", "createdAt", "updatedAt"]
+    },
+    "MatchCredentials": {
+      "title": "MatchCredentials",
+      "description": "Protected room ID and password accessible only to approved participants after release",
+      "type": "object",
+      "properties": {
+        "matchId": { "type": "string" },
+        "tournamentId": { "type": "string" },
+        "roomId": { "type": "string" },
+        "roomPassword": { "type": "string" },
+        "notes": { "type": "string" },
+        "released": { "type": "boolean" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["matchId", "tournamentId", "roomId", "roomPassword", "released", "updatedAt"]
+    },
+    "MatchResult": {
+      "title": "MatchResult",
+      "description": "Verified match result and point breakdown",
+      "type": "object",
+      "properties": {
+        "matchId": { "type": "string" },
+        "tournamentId": { "type": "string" },
+        "userId": { "type": "string" },
+        "teamId": { "type": "string" },
+        "participantName": { "type": "string" },
+        "placement": { "type": "integer" },
+        "kills": { "type": "integer" },
+        "placementPoints": { "type": "integer" },
+        "killPoints": { "type": "integer" },
+        "totalPoints": { "type": "integer" },
+        "published": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["matchId", "tournamentId", "userId", "participantName", "placement", "kills", "placementPoints", "killPoints", "totalPoints", "published", "createdAt", "updatedAt"]
+    },
+    "LeaderboardPlayer": {
+      "title": "LeaderboardPlayer",
+      "description": "Public player leaderboard stats without PII",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "username": { "type": "string" },
+        "avatarKey": { "type": "string" },
+        "primaryGame": { "type": "string", "enum": ["FREE_FIRE", "PUBG_MOBILE"] },
+        "matchesPlayed": { "type": "integer" },
+        "totalKills": { "type": "integer" },
+        "tournamentWins": { "type": "integer" },
+        "totalPoints": { "type": "integer" },
+        "published": { "type": "boolean" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "username", "primaryGame", "matchesPlayed", "totalKills", "tournamentWins", "totalPoints", "published", "updatedAt"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "User-scoped in-app notification",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "body": { "type": "string" },
+        "type": { "type": "string" },
+        "relatedId": { "type": "string" },
+        "read": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "title", "body", "type", "read", "createdAt", "updatedAt"]
+    },
+    "Reward": {
+      "title": "Reward",
+      "description": "Tournament prize record in NPR",
+      "type": "object",
+      "properties": {
+        "tournamentId": { "type": "string" },
+        "tournamentTitle": { "type": "string" },
+        "userId": { "type": "string" },
+        "recipientName": { "type": "string" },
+        "placement": { "type": "integer" },
+        "amountNpr": { "type": "integer" },
+        "status": { "type": "string", "enum": ["PENDING", "APPROVED", "DISTRIBUTED"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["tournamentId", "tournamentTitle", "userId", "recipientName", "placement", "amountNpr", "status", "createdAt", "updatedAt"]
+    },
+    "Announcement": {
+      "title": "Announcement",
+      "description": "Platform or tournament announcement",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "body": { "type": "string" },
+        "category": { "type": "string" },
+        "published": { "type": "boolean" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "body", "category", "published", "createdBy", "createdAt", "updatedAt"]
+    },
+    "Report": {
+      "title": "Report",
+      "description": "Player fair-play report or support inquiry",
+      "type": "object",
+      "properties": {
+        "reporterId": { "type": "string" },
+        "reporterName": { "type": "string" },
+        "category": { "type": "string", "enum": ["CHEATING", "SUPPORT", "DISPUTE"] },
+        "targetId": { "type": "string" },
+        "subject": { "type": "string" },
+        "details": { "type": "string" },
+        "status": { "type": "string", "enum": ["OPEN", "REVIEWED", "RESOLVED"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["reporterId", "reporterName", "category", "subject", "details", "status", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/admins/{uid}": {
+      "schema": { "$ref": "#/entities/AdminMarker" },
+      "description": "Admin role directory"
+    },
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Private user account profiles and gaming UIDs"
+    },
+    "/tournaments/{tournamentId}": {
+      "schema": { "$ref": "#/entities/Tournament" },
+      "description": "Tournaments catalog and admin lifecycle records"
+    },
+    "/tournaments/{tournamentId}/participants/{userId}": {
+      "schema": { "$ref": "#/entities/TournamentParticipant" },
+      "description": "Per-user participant gate used for match credential access"
+    },
+    "/teams/{teamId}": {
+      "schema": { "$ref": "#/entities/Team" },
+      "description": "Esports teams and rosters"
+    },
+    "/team_invitations/{invitationId}": {
+      "schema": { "$ref": "#/entities/TeamInvitation" },
+      "description": "Single-use team invitations"
+    },
+    "/registrations/{registrationId}": {
+      "schema": { "$ref": "#/entities/Registration" },
+      "description": "Tournament registrations"
+    },
+    "/matches/{matchId}": {
+      "schema": { "$ref": "#/entities/Match" },
+      "description": "Public match schedules without room credentials"
+    },
+    "/matches/{matchId}/private/{docId}": {
+      "schema": { "$ref": "#/entities/MatchCredentials" },
+      "description": "Private match room ID and password credentials"
+    },
+    "/match_results/{resultId}": {
+      "schema": { "$ref": "#/entities/MatchResult" },
+      "description": "Official verified match results"
+    },
+    "/leaderboard_players/{playerId}": {
+      "schema": { "$ref": "#/entities/LeaderboardPlayer" },
+      "description": "Public player leaderboard stats"
+    },
+    "/notifications/{notificationId}": {
+      "schema": { "$ref": "#/entities/Notification" },
+      "description": "User-scoped notifications"
+    },
+    "/rewards/{rewardId}": {
+      "schema": { "$ref": "#/entities/Reward" },
+      "description": "Tournament rewards in NPR"
+    },
+    "/announcements/{announcementId}": {
+      "schema": { "$ref": "#/entities/Announcement" },
+      "description": "Platform announcements"
+    },
+    "/reports/{reportId}": {
+      "schema": { "$ref": "#/entities/Report" },
+      "description": "Support inquiries and fair-play reports"
+    }
+  }
+}
